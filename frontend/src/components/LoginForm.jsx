@@ -16,12 +16,16 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { useGoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
+import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import api from "../services/api";
-import { useGoogleLogin } from "@react-oauth/google";
+import { setLogin } from "../store/state";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -35,11 +39,11 @@ const schema = yup
   })
   .required();
 
-const LoginForm = ({ formType, handleSwap }) => {
+const LoginForm = ({ formType, handleSwap, handleLoginError }) => {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const [showPassword, setShowPassword] = useState(false);
-  
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -59,14 +63,33 @@ const LoginForm = ({ formType, handleSwap }) => {
 
   const loginUser = async (data) => {
     try {
-      console.log("data before sent : ", data["email"]);
       const response = await api.post("/auth/token/", {
         email: data.email,
         password: data.password,
       });
-      console.log("login response : ", response);
-    } catch (error) {
-      console.log("error login user : ", error);
+
+      const { access, refresh } = response.data;
+
+      const decodedJwt = jwtDecode(access);
+      const user = {
+        user_id: decodedJwt.user_id,
+        firstName: decodedJwt.firstName,
+        lastName: decodedJwt.lastName,
+        email: decodedJwt.email,
+        date_joined: decodedJwt.date_joined,
+      };
+
+      dispatch(
+        setLogin({
+          accessToken: access,
+          refreshToken: refresh,
+          user: user,
+        })
+      );
+
+      navigate("/home");
+    } catch {
+      handleLoginError();
     }
   };
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthForm from "./AuthForm";
 import travel from "../assets/travel.jpg";
 
-const AuthForms = ({registerToast}) => {
+const AuthForms = ({registerToast, handleLoginError}) => {
   const [isSwapped, setIsSwapped] = useState(false);
   const [formType, setFormType] = useState("login");
 
@@ -19,7 +19,7 @@ const AuthForms = ({registerToast}) => {
           isSwapped ? "translate-x-full sm:translate-x-[500px]" : ""
         }`}
       >
-        <AuthForm formType={formType} handleSwap={handleSwap} registerToast={registerToast}/>
+        <AuthForm formType={formType} handleSwap={handleSwap} registerToast={registerToast} handleLoginError={handleLoginError}/>
       </div>
 
       {/* Right Div */}

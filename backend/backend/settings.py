@@ -39,6 +39,7 @@ SIMPLE_JWT = {
     "SIGNING_KEY": os.getenv("DJANGO_SECRET_KEY"),
     # "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
     # "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(minutes=60),
+    "TOKEN_OBTAIN_SERIALIZER": "app.serializers.MyTokenObtainPairSerializer",
 }
 
 AUTH_USER_MODEL = "app.CustomUser"

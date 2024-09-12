@@ -1,7 +1,7 @@
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-const AuthForm = ({ formType, handleSwap, registerToast }) => {
+const AuthForm = ({ formType, handleSwap, registerToast, handleLoginError }) => {
   return (
     <div className="w-full h-full flex justify-center items-center bg-white shadow-lg">
       {formType === "register" ? (
@@ -14,6 +14,7 @@ const AuthForm = ({ formType, handleSwap, registerToast }) => {
         <LoginForm
           formType={formType}
           handleSwap={handleSwap}
+          handleLoginError={handleLoginError}
         />
       )}
       ;
