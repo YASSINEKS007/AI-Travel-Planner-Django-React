@@ -26,7 +26,8 @@ def register(request):
             data = json.loads(request.body)
             email = data.get("email")
             password = data.get("password")
-            username = data.get("username")
+            firstName = data.get("firstName")
+            lastName = data.get("lastName")
 
             if not email or not password:
                 return Response(
@@ -44,7 +45,8 @@ def register(request):
             CustomUser.objects.create_user(
                 email=email,
                 password=password,
-                username=username,
+                firstName=firstName,
+                lastName=lastName
             )
 
             return Response(
