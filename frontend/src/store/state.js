@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   accessToken: null,
   refreshToken: null,
+  emailNotification: false,
 };
 
 export const authSlice = createSlice({
@@ -26,9 +27,12 @@ export const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
+    setEmailNotifications: (state) => {
+      state.emailNotification = !state.emailNotification;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout } = authSlice.actions;
+export const { setMode, setLogin, setLogout, setEmailNotifications } = authSlice.actions;
 
 export default authSlice.reducer;

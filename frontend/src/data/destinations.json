@@ -59,10 +59,7 @@
     "title": "Venice",
     "description": "Get lost in the romance of Venice, where winding canals and gondola rides take you through centuries of history and charm."
   },
-  {
-    "title": "Cape Town",
-    "description": "From the majestic Table Mountain to the scenic Cape Peninsula, Cape Town offers breathtaking landscapes and a diverse culture."
-  },
+  
   {
     "title": "San Francisco",
     "description": "Iconic bridges, hilly streets, and vibrant neighborhoods make San Francisco an unforgettable city of adventure and discovery."
@@ -79,10 +76,7 @@
     "title": "Lisbon",
     "description": "Portugal’s coastal gem, Lisbon offers scenic hilltops, colorful neighborhoods, and delicious cuisine in a warm Mediterranean atmosphere."
   },
-  {
-    "title": "Buenos Aires",
-    "description": "Dance the tango and experience the passion of Buenos Aires, a city where European charm meets Latin American energy."
-  },
+  
   {
     "title": "Cairo",
     "description": "Travel back in time and discover the ancient wonders of Cairo, from the Pyramids of Giza to the treasures of the Egyptian Museum."
@@ -111,42 +105,12 @@
     "title": "Beijing",
     "description": "Visit Beijing, home to iconic landmarks like the Forbidden City and the Great Wall, and immerse yourself in Chinese history."
   },
-  {
-    "title": "Havana",
-    "description": "Step into a time capsule in Havana, where vintage cars and colonial architecture transport you to the golden era of Cuba."
-  },
-  {
-    "title": "Edinburgh",
-    "description": "Walk through the cobblestone streets of Edinburgh, visit its majestic castle, and enjoy the rich history and culture of Scotland."
-  },
+
   {
     "title": "Prague",
     "description": "With its fairy-tale architecture, winding streets, and rich history, Prague offers a magical experience in the heart of Europe."
   },
-  {
-    "title": "Florence",
-    "description": "Discover the art, history, and beauty of Florence, the cradle of the Renaissance, where masterpieces and stunning landscapes await."
-  },
-  {
-    "title": "Vienna",
-    "description": "Let Vienna charm you with its imperial palaces, classical music, and world-class museums. A city steeped in culture and elegance."
-  },
-  {
-    "title": "Kuala Lumpur",
-    "description": "Malaysia’s capital, Kuala Lumpur, blends modern skyscrapers, historical landmarks, and a rich mix of cultures and cuisines."
-  },
-  {
-    "title": "Zurich",
-    "description": "Zurich is the heart of Swiss luxury and charm, offering picturesque views, luxury shopping, and proximity to the stunning Swiss Alps."
-  },
-  {
-    "title": "Dublin",
-    "description": "Ireland’s lively capital offers a warm welcome, historic sites like Trinity College, and an unparalleled pub culture."
-  },
-  {
-    "title": "Stockholm",
-    "description": "Explore Stockholm’s scenic archipelago, visit its historic old town, and immerse yourself in Scandinavian culture and design."
-  },
+
   {
     "title": "Madrid",
     "description": "From grand plazas to royal palaces, Madrid’s vibrant streets are filled with history, art, and lively tapas bars."
@@ -163,26 +127,12 @@
     "title": "Montreal",
     "description": "Experience the blend of European charm and North American innovation in Montreal, where history, culture, and gourmet food collide."
   },
-  {
-    "title": "Mumbai",
-    "description": "Mumbai, India’s bustling metropolis, is a city of contrasts, offering everything from historic landmarks to Bollywood’s glittering film industry."
-  },
-  {
-    "title": "Vienna",
-    "description": "Walk in the footsteps of kings in Vienna, where palaces, opera houses, and elegant cafés paint a picture of Europe’s imperial past."
-  },
+
   {
     "title": "Marrakech",
     "description": "Immerse yourself in the vibrant souks, stunning palaces, and rich cultural heritage of Marrakech, Morocco’s most enchanting city."
   },
-  {
-    "title": "Oslo",
-    "description": "Surrounded by fjords and forests, Oslo is a modern city that blends stunning natural beauty with a rich Viking history."
-  },
-  {
-    "title": "Reykjavik",
-    "description": "Discover the magic of Iceland’s capital, Reykjavik, where you can witness the Northern Lights, explore volcanoes, and relax in hot springs."
-  },
+
   {
     "title": "Kyoto",
     "description": "Step into the world of ancient Japan in Kyoto, where tranquil temples, beautiful gardens, and rich traditions captivate the soul."

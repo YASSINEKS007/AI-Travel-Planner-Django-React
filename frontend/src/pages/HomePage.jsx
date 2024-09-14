@@ -1,4 +1,10 @@
-import { Box, InputBase, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  InputBase,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import DestinationCard from "../components/DestinationCard";
 import data from "../data/destinations.json";
 import { useState, useEffect } from "react";
@@ -9,7 +15,7 @@ const HomePage = () => {
   const [destinationsResult, setDestinationsResult] = useState(data);
 
   useEffect(() => {
-    const filteredDestinations = data.filter(destination =>
+    const filteredDestinations = data.filter((destination) =>
       destination.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setDestinationsResult(filteredDestinations);
@@ -46,6 +52,33 @@ const HomePage = () => {
             />
           ))}
         </Box>
+      </div>
+      <div className="mt-10 text-center">
+        <Typography
+          variant="h2"
+          className="font-bold text-3xl md:text-4xl text-purple-700"
+        >
+          Get Personalized Travel Recommendations
+        </Typography>
+      </div>
+      <div className="mt-8 text-center">
+        <Typography
+          variant="h3"
+          className="font-semibold text-xl md:text-2xl text-gray-600"
+        >
+          Tell us your preferences and we will recommend the best destinations
+          for you
+        </Typography>
+      </div>
+      <div className="mt-6 mb-10">
+        <Button
+          variant="contained"
+          sx={{
+            borderRadius: "18px",
+          }}
+        >
+          Get Started
+        </Button>
       </div>
     </div>
   );
