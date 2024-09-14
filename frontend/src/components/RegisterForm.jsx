@@ -15,6 +15,7 @@ import {
   TextField,
   Typography,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -42,6 +43,7 @@ const schema = yup
 const RegisterForm = ({ formType, handleSwap, registerToast }) => {
   const isNonMobileScreen = useMediaQuery("(min-width: 1000px)");
   const [showPassword, setShowPassword] = useState(false);
+  const theme = useTheme();
 
   const {
     register,
@@ -61,7 +63,6 @@ const RegisterForm = ({ formType, handleSwap, registerToast }) => {
 
   const registerUser = async (data) => {
     delete data["passwordConfirmation"];
-    console.log("data", data);
     try {
       const response = await api.post("/auth/register/", {
         firstName: data["firstName"],
@@ -96,20 +97,20 @@ const RegisterForm = ({ formType, handleSwap, registerToast }) => {
           variant="h4"
           sx={{
             gridColumn: "span 2",
-            color: "#1e90ff", // Vivid blue color for the text
-            fontWeight: "bold", // Bold text for prominence
-            textAlign: "center", // Centers the text
-            mb: 3, // Adds some margin below the title
-            fontFamily: "'Karla', sans-serif", // Uses the 'Karla' font
-            letterSpacing: "1.5px", // Adds a bit more spacing between letters
-            borderBottom: "4px solid #1e90ff", // Thicker bottom border for emphasis
-            paddingBottom: "8px", // Adds more padding below the text for balance
-            position: "relative", // Needed for the pseudo-element
-            overflow: "hidden", // Ensures the pseudo-element does not overflow
-            transition: "color 0.4s ease, transform 0.4s ease", // Smooth transition for color and scale
+            color: theme.palette.primary.main, // Use theme primary color
+            fontWeight: theme.typography.fontWeightBold, // Use theme font weight
+            textAlign: "center",
+            mb: 3,
+            fontFamily: theme.typography.fontFamily, // Use theme font family
+            letterSpacing: "1.5px",
+            borderBottom: `4px solid ${theme.palette.primary.main}`, // Use theme primary color for border
+            paddingBottom: "8px",
+            position: "relative",
+            overflow: "hidden",
+            transition: "color 0.4s ease, transform 0.4s ease",
             "&:hover": {
-              color: "#ffffff", // Changes text color to white on hover
-              transform: "translateY(-5px)", // Slightly lifts the title on hover
+              color: theme.palette.background.paper, // Use theme background paper color for hover
+              transform: "translateY(-5px)",
             },
             "&::before": {
               content: '""',
@@ -121,10 +122,10 @@ const RegisterForm = ({ formType, handleSwap, registerToast }) => {
               background:
                 "linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0))",
               opacity: 0,
-              transition: "opacity 0.4s ease", // Smooth transition for the gradient
+              transition: "opacity 0.4s ease",
             },
             "&:hover::before": {
-              opacity: 1, // Shows the gradient effect on hover
+              opacity: 1,
             },
           }}
         >
@@ -272,17 +273,17 @@ const RegisterForm = ({ formType, handleSwap, registerToast }) => {
           m={2}
           sx={{
             textAlign: "center",
-            fontSize: "1rem",
-            fontWeight: "medium",
-            color: "#333", 
+            fontSize: theme.typography.body1.fontSize, // Use theme font size
+            fontWeight: theme.typography.fontWeightMedium, // Use theme font weight
+            color: theme.palette.text.primary, // Use theme text color
             "& span": {
-              color: "#1E90FF", 
-              fontWeight: "bold",
+              color: theme.palette.primary.main, // Use theme primary color for the link
+              fontWeight: theme.typography.fontWeightBold, // Use theme font weight for bold text
               textDecoration: "none",
               cursor: "pointer",
               "&:hover": {
                 textDecoration: "underline",
-                color: "#1C86EE", 
+                color: theme.palette.primary.dark, // Use a darker shade of theme primary color on hover
               },
             },
             gridColumn: "span 2",
