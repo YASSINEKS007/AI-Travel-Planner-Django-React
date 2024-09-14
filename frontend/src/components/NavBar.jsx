@@ -14,7 +14,7 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const links = [
-    { id: 0, label: "Home Page", to: "/home" },
+    { id: 0, label: "Home", to: "/home" },
     { id: 1, label: "Your Recommendations", to: "/recommendations" },
     { id: 2, label: "Profile", to: "/profile" },
   ];
