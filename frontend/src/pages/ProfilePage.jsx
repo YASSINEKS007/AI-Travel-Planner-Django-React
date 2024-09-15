@@ -11,6 +11,8 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { setMode, setEmailNotifications } from "../store/state";
+import ProfileDialog from "../components/ProfileDialog";
+import { useState } from "react";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -98,21 +100,35 @@ const ProfilePage = () => {
   const theme = useTheme();
   const firstName = useSelector((state) => state.user.firstName);
   const lastName = useSelector((state) => state.user.lastName);
+  const profilePicture = useSelector((state) => state.user.profilePicture);
   const fullName = firstName + " " + lastName;
   const mode = useSelector((state) => state.mode);
   const dispatch = useDispatch();
   const emailNotification = useSelector((state) => state.emailNotification);
-
-  const handleChange = () => {
-    dispatch(setMode());
-  };
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleEmailNotificationChange = () => {
     dispatch(setEmailNotifications());
   };
 
+  const handleChange = () => {
+    dispatch(setMode());
+  };
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-10 mb-10">
+      <ProfileDialog
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+      />
       <div
         className="border rounded-lg shadow-lg flex flex-col items-center justify-center w-[80%] h-[80%] p-8"
         style={{ borderColor: theme.palette.primary.main }}
@@ -139,8 +155,8 @@ const ProfilePage = () => {
               variant="dot"
             >
               <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
+                alt={fullName.toUpperCase()}
+                src={profilePicture}
                 sx={{
                   width: 120,
                   height: 120,
@@ -163,6 +179,7 @@ const ProfilePage = () => {
               <Button
                 variant="contained"
                 className="rounded-full"
+                onClick={handleOpenDialog}
                 sx={{
                   borderRadius: "18px",
                   padding: "8px 16px",

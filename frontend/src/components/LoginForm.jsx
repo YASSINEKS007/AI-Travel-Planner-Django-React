@@ -72,6 +72,9 @@ const LoginForm = ({ formType, handleSwap, handleLoginError }) => {
 
       const { access, refresh } = response.data;
 
+      localStorage.setItem("accessToken", access);
+      localStorage.setItem("refreshToken", refresh);
+
       const decodedJwt = jwtDecode(access);
       const user = {
         user_id: decodedJwt.user_id,
@@ -81,16 +84,31 @@ const LoginForm = ({ formType, handleSwap, handleLoginError }) => {
         date_joined: decodedJwt.date_joined,
       };
 
+      // Function to fetch the profile picture
+      const fetchProfilePicture = async () => {
+        try {
+          const response = await api.get("/profile-picture/");
+          return response.data.profile_picture; // Return the profile picture URL
+        } catch (error) {
+          console.error("Error fetching profile picture:", error);
+          return null; 
+        }
+      };
+
+      const profilePicture = await fetchProfilePicture();
+      const updatedUser = { ...user, profilePicture };
+
       dispatch(
         setLogin({
           accessToken: access,
           refreshToken: refresh,
-          user: user,
+          user: updatedUser,
         })
       );
 
       navigate("/home");
-    } catch {
+    } catch (error) {
+      console.error("Error during login:", error);
       handleLoginError();
     }
   };

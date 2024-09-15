@@ -154,3 +154,6 @@ CORS_ALLOW_METHODS = tuple(os.getenv("CORS_ALLOW_METHODS", "").split(","))
 CORS_ALLOW_HEADERS = tuple(os.getenv("CORS_ALLOW_HEADERS", "").split(","))
 
 CORS_ALLOW_CREDENTIALS = os.getenv("CORS_ALLOW_CREDENTIALS", "False") == "True"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

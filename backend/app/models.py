@@ -29,6 +29,8 @@ class CustomUser(AbstractBaseUser):
     lastName = models.CharField(max_length=150)
 
     date_joined = models.DateTimeField(auto_now_add=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

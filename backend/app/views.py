@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import status
 from rest_framework.decorators import (
     api_view,
@@ -7,8 +9,9 @@ from rest_framework.decorators import (
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
-import json
+
 from .models import CustomUser
+from .serializers import UserUpdateSerializer
 
 
 @api_view(["GET"])
@@ -43,10 +46,7 @@ def register(request):
                 )
 
             CustomUser.objects.create_user(
-                email=email,
-                password=password,
-                firstName=firstName,
-                lastName=lastName
+                email=email, password=password, firstName=firstName, lastName=lastName
             )
 
             return Response(
@@ -65,3 +65,30 @@ def register(request):
     return Response(
         {"error": "POST method required"}, status=status.HTTP_400_BAD_REQUEST
     )
+
+@api_view(["PATCH"])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def update_user(request):
+    user = request.user
+    serializer = UserUpdateSerializer(user, data=request.data, partial=True)
+
+    if serializer.is_valid():
+        if "profile_picture" in request.FILES:
+            user.profile_picture = request.FILES["profile_picture"]
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def get_profile_picture(request):
+    user = request.user
+    if user.profile_picture:
+        profile_picture_url = request.build_absolute_uri(user.profile_picture.url)
+        return Response({"profile_picture": profile_picture_url}, status=status.HTTP_200_OK)
+    else:
+        return Response({"error": "No profile picture available"}, status=status.HTTP_404_NOT_FOUND)

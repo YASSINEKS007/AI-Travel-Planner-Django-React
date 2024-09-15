@@ -1,5 +1,6 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-import datetime
+from rest_framework import serializers
+from .models import CustomUser
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -13,3 +14,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["date_joined"] = int((user.date_joined).timestamp())
 
         return token
+
+
+from rest_framework import serializers
+from .models import CustomUser
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["firstName", "lastName", "email", "profile_picture", "password"]

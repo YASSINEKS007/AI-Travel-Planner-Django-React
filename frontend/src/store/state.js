@@ -30,9 +30,21 @@ export const authSlice = createSlice({
     setEmailNotifications: (state) => {
       state.emailNotification = !state.emailNotification;
     },
+    setUpdateUser: (state, action) => {
+      state.user.firstName = action.payload.firstName;
+      state.user.lastName = action.payload.lastName;
+      state.user.email = action.payload.email;
+      state.user.profilePicture = action.payload.profilePicture;
+    },
   },
 });
 
-export const { setMode, setLogin, setLogout, setEmailNotifications } = authSlice.actions;
+export const {
+  setMode,
+  setLogin,
+  setLogout,
+  setEmailNotifications,
+  setUpdateUser,
+} = authSlice.actions;
 
 export default authSlice.reducer;
