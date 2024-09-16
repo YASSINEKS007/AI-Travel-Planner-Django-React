@@ -1,6 +1,10 @@
+import NavBar from "../components/NavBar";
+
 const RecommendationsPage = () => {
   return (
-    <div>RecommendationsPage</div>
-  )
-}
-export default RecommendationsPage
+    <>
+      <NavBar />
+    </>
+  );
+};
+export default RecommendationsPage;

@@ -13,6 +13,7 @@ import Switch from "@mui/material/Switch";
 import { setMode, setEmailNotifications } from "../store/state";
 import ProfileDialog from "../components/ProfileDialog";
 import { useState } from "react";
+import NavBar from "../components/NavBar";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -124,142 +125,145 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-10 mb-10">
-      <ProfileDialog
-        open={isDialogOpen}
-        onClose={handleCloseDialog}
-      />
-      <div
-        className="border rounded-lg shadow-lg flex flex-col items-center justify-center w-[80%] h-[80%] p-8"
-        style={{ borderColor: theme.palette.primary.main }}
-      >
-        <div className="mb-6">
-          <Typography
-            variant="h2"
-            sx={{
-              color: theme.palette.primary.main,
-              fontWeight: "bold",
-              textAlign: "center",
-              marginBottom: "16px",
-              fontSize: "2.5rem",
-            }}
-          >
-            Profile Page
-          </Typography>
-        </div>
-        <div className="flex w-full">
-          <div className="flex items-center ml-2">
-            <StyledBadge
-              overlap="circular"
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              variant="dot"
+    <>
+      <NavBar />
+      <div className="flex flex-col items-center mt-10 mb-10">
+        <ProfileDialog
+          open={isDialogOpen}
+          onClose={handleCloseDialog}
+        />
+        <div
+          className="border rounded-lg shadow-lg flex flex-col items-center justify-center w-[80%] h-[80%] p-8"
+          style={{ borderColor: theme.palette.primary.main }}
+        >
+          <div className="mb-6">
+            <Typography
+              variant="h2"
+              sx={{
+                color: theme.palette.primary.main,
+                fontWeight: "bold",
+                textAlign: "center",
+                marginBottom: "16px",
+                fontSize: "2.5rem",
+              }}
             >
-              <Avatar
-                alt={fullName.toUpperCase()}
-                src={profilePicture}
-                sx={{
-                  width: 120,
-                  height: 120,
-                  border: "2px solid white",
-                }}
-              />
-            </StyledBadge>
-            <div className="ml-4 flex flex-col items-start">
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: "medium",
-                  color: theme.palette.text.primary,
-                  marginBottom: "8px",
-                  marginLeft: "8px",
-                }}
+              Profile Page
+            </Typography>
+          </div>
+          <div className="flex w-full">
+            <div className="flex items-center ml-2">
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
               >
-                {fullName}
-              </Typography>
-              <Button
-                variant="contained"
-                className="rounded-full"
-                onClick={handleOpenDialog}
-                sx={{
-                  borderRadius: "18px",
-                  padding: "8px 16px",
-                  backgroundColor: theme.palette.primary.main,
-                  color: "white",
-                  "&:hover": {
+                <Avatar
+                  alt={fullName.toUpperCase()}
+                  src={profilePicture}
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    border: "2px solid white",
+                  }}
+                />
+              </StyledBadge>
+              <div className="ml-4 flex flex-col items-start">
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: "medium",
+                    color: theme.palette.text.primary,
+                    marginBottom: "8px",
+                    marginLeft: "8px",
+                  }}
+                >
+                  {fullName}
+                </Typography>
+                <Button
+                  variant="contained"
+                  className="rounded-full"
+                  onClick={handleOpenDialog}
+                  sx={{
+                    borderRadius: "18px",
+                    padding: "8px 16px",
                     backgroundColor: theme.palette.primary.main,
-                  },
-                }}
-              >
-                Edit Profile
-              </Button>
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: theme.palette.primary.main,
+                    },
+                  }}
+                >
+                  Edit Profile
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col w-full mt-10 space-y-6">
-          <Typography
-            variant="h3"
-            className="text-center"
-            style={{ color: theme.palette.primary.main }}
-          >
-            Travel History
-          </Typography>
-          <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 1, spaceBetween: 20 },
-              768: { slidesPerView: 2, spaceBetween: 30 },
-              1024: { slidesPerView: 3, spaceBetween: 40 },
-            }}
-            scrollbar={{ draggable: true }}
-            className="w-full"
-          >
-            {data.slice(0, 6).map((destination, id) => (
-              <SwiperSlide key={id}>
-                <DestinationCard
-                  title={destination.title}
-                  description={destination.description}
+          <div className="flex flex-col w-full mt-10 space-y-6">
+            <Typography
+              variant="h3"
+              className="text-center"
+              style={{ color: theme.palette.primary.main }}
+            >
+              Travel History
+            </Typography>
+            <Swiper
+              spaceBetween={30}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 1, spaceBetween: 20 },
+                768: { slidesPerView: 2, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 40 },
+              }}
+              scrollbar={{ draggable: true }}
+              className="w-full"
+            >
+              {data.slice(0, 6).map((destination, id) => (
+                <SwiperSlide key={id}>
+                  <DestinationCard
+                    title={destination.title}
+                    description={destination.description}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+          <div className="flex flex-col w-full items-center justify-center mt-10 space-y-6">
+            <Typography
+              variant="h3"
+              className="text-center"
+              style={{ color: theme.palette.primary.main }}
+            >
+              Settings
+            </Typography>
+            <div
+              className={`w-[95%] flex rounded-lg shadow-lg border`}
+              style={{ borderColor: theme.palette.primary.main }}
+            >
+              <div className="flex flex-col m-6">
+                <Typography variant="h6">Email Notifications</Typography>
+                <Switch
+                  defaultChecked={emailNotification}
+                  onChange={handleEmailNotificationChange}
                 />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        <div className="flex flex-col w-full items-center justify-center mt-10 space-y-6">
-          <Typography
-            variant="h3"
-            className="text-center"
-            style={{ color: theme.palette.primary.main }}
-          >
-            Settings
-          </Typography>
-          <div
-            className={`w-[95%] flex rounded-lg shadow-lg border`}
-            style={{ borderColor: theme.palette.primary.main }}
-          >
-            <div className="flex flex-col m-6">
-              <Typography variant="h6">Email Notifications</Typography>
-              <Switch
-                defaultChecked={emailNotification}
-                onChange={handleEmailNotificationChange}
-              />
-              <Typography variant="h6">Theme</Typography>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <MaterialUISwitch
-                      sx={{ m: 1 }}
-                      defaultChecked={false}
-                    />
-                  }
-                  label={mode}
-                  onChange={handleChange}
-                />
-              </FormGroup>
+                <Typography variant="h6">Theme</Typography>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <MaterialUISwitch
+                        sx={{ m: 1 }}
+                        defaultChecked={false}
+                      />
+                    }
+                    label={mode}
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default ProfilePage;

@@ -1,8 +1,9 @@
 import Background from "../components/ui/Background";
-import { Typography, Link, useTheme } from "@mui/material";
+import { Typography, Link, useTheme, useMediaQuery } from "@mui/material";
 
 const NotAuthorized = () => {
   const theme = useTheme();
+  const isNotMobileScreen = useMediaQuery("(min-width: 1000px)");
 
   return (
     <Background>
@@ -10,6 +11,7 @@ const NotAuthorized = () => {
         className="bg-white shadow-md rounded-lg p-8 max-w-lg text-center"
         style={{
           backgroundColor: theme.palette.background.paper,
+          margin: isNotMobileScreen ? null : 5,
         }}
       >
         <Typography
@@ -24,17 +26,16 @@ const NotAuthorized = () => {
           403 - Not Authorized
         </Typography>
         <Typography
-          variant="body1"
+          variant="h2"
           sx={{
-            fontSize: theme.typography.body1.fontSize,
-            color: theme.palette.text.secondary,
+            color: theme.palette.text.primary,
             mb: 6,
           }}
         >
           You do not have permission to access this page.
         </Typography>
         <Link
-          href="/login"
+          href="/"
           sx={{
             color: theme.palette.primary.main,
             "&:hover": {
