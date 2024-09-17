@@ -108,8 +108,8 @@ const ProfilePage = () => {
   const emailNotification = useSelector((state) => state.emailNotification);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleEmailNotificationChange = () => {
-    dispatch(setEmailNotifications());
+  const handleEmailNotificationChange = (event) => {
+    dispatch(setEmailNotifications(event.target.emailNotification));
   };
 
   const handleChange = () => {
@@ -242,7 +242,7 @@ const ProfilePage = () => {
               <div className="flex flex-col m-6">
                 <Typography variant="h6">Email Notifications</Typography>
                 <Switch
-                  defaultChecked={emailNotification}
+                  checked={emailNotification}
                   onChange={handleEmailNotificationChange}
                 />
                 <Typography variant="h6">Theme</Typography>

@@ -27,6 +27,8 @@ const NavBar = () => {
 
   const logout = () => {
     dispatch(setLogout());
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     navigate("/login");
   };
   const [anchorEl, setAnchorEl] = useState(null);
