@@ -10,6 +10,7 @@ import MainPage from "./pages/MainPage";
 import NotAuthorized from "./pages/NotAuthorized";
 import ProfilePage from "./pages/ProfilePage";
 import RecommendationsPage from "./pages/RecommendationsPage";
+import RecommendationDetailsPage from "./pages/RecommendationDetailsPage";
 
 const App = () => {
   const isAuthenticated = useSelector((state) => state.accessToken != null);
@@ -42,6 +43,16 @@ const App = () => {
           <Route
             path="/profile"
             element={isAuthenticated ? <ProfilePage /> : <NotAuthorized />}
+          />
+          <Route
+            path="/recommendations/:id"
+            element={
+              isAuthenticated ? (
+                <RecommendationDetailsPage />
+              ) : (
+                <NotAuthorized />
+              )
+            }
           />
         </Routes>
       </BrowserRouter>

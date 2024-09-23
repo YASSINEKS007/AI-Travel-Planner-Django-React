@@ -69,8 +69,7 @@ const HomePage = () => {
             variant="h3"
             className="font-semibold text-xl md:text-2xl text-gray-600"
           >
-            Tell us your preferences and we will recommend the best destinations
-            for you
+            Tell us your preferences and we will recommend the best plan for you
           </Typography>
         </div>
         <div className="mt-6 mb-10">

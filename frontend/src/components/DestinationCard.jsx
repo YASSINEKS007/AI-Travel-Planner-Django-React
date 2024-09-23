@@ -3,41 +3,24 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
 
 const DestinationCard = ({ title, description }) => {
-  const [image, setImage] = useState(null);
-
-  useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const img = await import(`../assets/cities/${title}.jpg`);
-        setImage(img.default);
-      } catch (error) {
-        console.error("Error loading image:", error);
-      }
-    };
-
-    loadImage();
-  }, [title]);
-
+  const imageName = title.toLowerCase();
+  console.log("image name : ", imageName)
   return (
-    <Card
-      sx={{ maxWidth: 345, height: 320 }}
-    >
+    <Card sx={{ maxWidth: 345, height: 320 }}>
       <CardActionArea>
-        {image && (
-          <CardMedia
-            component="img"
-            sx={{
-              width: "100%",
-              height: 200,
-              objectFit: "cover",
-            }}
-            image={image}
-            alt={title}
-          />
-        )}
+        <CardMedia
+          component="img"
+          sx={{
+            width: "100%",
+            height: 200,
+            objectFit: "cover",
+          }}
+          image={`/cities/${imageName}.jpg`}
+          alt={title}
+        />
+
         <CardContent>
           <Typography
             gutterBottom

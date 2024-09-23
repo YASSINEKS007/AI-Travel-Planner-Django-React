@@ -1,13 +1,7 @@
 import { Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/travel-logo.png";
-import mainImage from "../assets/travel-main.jpg";
 import MainCard from "../components/MainCard";
 import MainRecommendationCard from "../components/MainRecommendationCard";
-import londonImage from "../assets/cities/London.jpg";
-import parisImage from "../assets/cities/Paris.jpg";
-import syndenyImage from "../assets/cities/Sydney.jpg";
-import newyorkImage from "../assets/cities/New York.jpg";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import LocalHospital from "@mui/icons-material/LocalHospital";
@@ -24,7 +18,7 @@ const MainPage = () => {
         style={{ backgroundColor: theme.palette.primary.default }}
       >
         <img
-          src={logo}
+          src={"/travel-logo.png"}
           alt="AI Travel App Icon"
           className="h-10 w-10 ml-2"
         />
@@ -56,7 +50,7 @@ const MainPage = () => {
 
       <div className="relative flex flex-col items-center justify-center w-[85%] mt-6">
         <img
-          src={mainImage}
+          src={"/travel-main.jpg"}
           className="rounded-lg w-full h-[400px] object-cover"
         />
         <div className="absolute inset-0 flex items-center justify-center">
@@ -93,19 +87,19 @@ const MainPage = () => {
           }`}
         >
           <MainRecommendationCard
-            imagePath={londonImage}
+            imagePath={"/cities/london.jpg"}
             cityName={"London"}
           />
           <MainRecommendationCard
-            imagePath={parisImage}
+            imagePath={"/cities/paris.jpg"}
             cityName={"Paris"}
           />
           <MainRecommendationCard
-            imagePath={newyorkImage}
+            imagePath={"/cities/new york.jpg"}
             cityName={"New York"}
           />
           <MainRecommendationCard
-            imagePath={syndenyImage}
+            imagePath={"/cities/sydney.jpg"}
             cityName={"Sydney"}
           />
         </div>
@@ -150,14 +144,15 @@ const MainPage = () => {
             style={{
               backgroundColor: theme.palette.background.default,
             }}
-          >            <CreditCardIcon
+          >
+            {" "}
+            <CreditCardIcon
               fontSize="large"
               className="mb-4"
               style={{
                 color: theme.palette.text.primary,
               }}
             />
-
             <Typography
               variant="h4"
               className="text-center mb-2 font-bold"
@@ -167,7 +162,6 @@ const MainPage = () => {
             >
               Refunds & Cancelation
             </Typography>
-
             <Typography
               variant="h6"
               className="text-center pt-6"
@@ -183,14 +177,15 @@ const MainPage = () => {
             style={{
               backgroundColor: theme.palette.background.default,
             }}
-          >            <LocalHospital
+          >
+            {" "}
+            <LocalHospital
               fontSize="large"
               className="mb-4"
               style={{
                 color: theme.palette.text.primary,
               }}
             />
-
             <Typography
               variant="h4"
               className="text-center mb-2 font-bold"
@@ -200,7 +195,6 @@ const MainPage = () => {
             >
               Health Guidelines
             </Typography>
-
             <Typography
               variant="h6"
               className="text-center pt-6"
