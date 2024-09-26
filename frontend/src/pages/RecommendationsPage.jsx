@@ -8,21 +8,80 @@ import {
   useTheme,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import RecommendationCard from "../components/RecommendationCard";
 import data from "../data/destinations.json";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import api from "../services/api";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup
+  .object({
+    origin: yup.string().required("Origin is required"),
+    destination: yup.string().required("Destination is required"),
+    budget: yup
+      .number()
+      .typeError("Budget must be a valid number")
+      .positive("Budget must be a positive number")
+      .required("Budget is required"),
+
+    adults: yup
+      .number()
+      .typeError("Adults must be a valid number")
+      .positive("Adults must be a positive number")
+      .integer("Adults must be an integer")
+      .required("Adults is required"),
+    criteria: yup.string().required("Preferences are required"),
+  })
+  .required();
 
 const RecommendationsPage = () => {
   const theme = useTheme();
   const isNotMobileScreen = useMediaQuery("(min-width: 1000px)");
   const cities = data.map((destination) => destination.title);
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const [departureDate, setDepartureDate] = useState(null);
+  const [arrivalDate, setArrivalDate] = useState(null);
+
+  const onSubmit = async (data) => {
+    console.log("data : ", data);
+    console.log("data : ", departureDate);
+    console.log("data : ", arrivalDate);
+    try {
+      const response = await api.post("/recommendation/generate-plan/", {
+        origin: data.origin,
+        destination: data.destination,
+        adults: data.adults,
+        budget: data.budget,
+        departure: departureDate,
+        arrival: arrivalDate,
+        criteria: data.criteria,
+      });
+
+      console.log("response : ", response.data);
+    } catch (error) {
+      console.log("error sending user preferences ", error);
+    }
+  };
 
   const [label, setLabel] = useState("");
 
@@ -82,7 +141,10 @@ const RecommendationsPage = () => {
           >
             Your Personalized Plan
           </Typography>
-          <form className="w-full">
+          <form
+            className="w-full"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Box
               display="grid"
               gridTemplateColumns="repeat(2,1fr)"
@@ -107,6 +169,9 @@ const RecommendationsPage = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    {...register("origin")}
+                    error={!!errors.origin}
+                    helperText={errors.origin?.message}
                     label="Origin"
                     slotProps={{
                       input: {
@@ -130,6 +195,9 @@ const RecommendationsPage = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    {...register("destination")}
+                    error={!!errors.destination}
+                    helperText={errors.destination?.message}
                     label="Destination"
                     slotProps={{
                       input: {
@@ -141,6 +209,9 @@ const RecommendationsPage = () => {
                 )}
               />
               <TextField
+                {...register("adults")}
+                error={!!errors.adults}
+                helperText={errors.adults?.message}
                 label="Adults"
                 type="number"
                 sx={{
@@ -151,6 +222,9 @@ const RecommendationsPage = () => {
                 }}
               />
               <TextField
+                {...register("budget")}
+                error={!!errors.budget}
+                helperText={errors.budget?.message}
                 label="Budget"
                 type="number"
                 slotProps={{
@@ -167,12 +241,80 @@ const RecommendationsPage = () => {
                   gridColumn: !isNotMobileScreen && "span 2",
                 }}
               />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  components={["DatePicker"]}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "30px",
+                    },
+                    gridColumn: !isNotMobileScreen && "span 2",
+                    width: "100%",
+                  }}
+                >
+                  <DatePicker
+                    label="Departure Date"
+                    sx={{
+                      width: "100%",
+                    }}
+                    disablePast
+                    onChange={(newValue) => {
+                      setDepartureDate(
+                        `${newValue.year()}-${
+                          newValue.month() + 1 >= 10
+                            ? newValue.month() + 1
+                            : "0" + (newValue.month() + 1)
+                        }-${
+                          newValue.date() >= 10
+                            ? newValue.date()
+                            : "0" + newValue.date()
+                        }`
+                      );
+                    }}
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer
+                  components={["DatePicker"]}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "30px",
+                    },
+                    gridColumn: !isNotMobileScreen && "span 2",
+                    width: "100%",
+                  }}
+                >
+                  <DatePicker
+                    label="Arrival Date"
+                    onChange={(newValue) => {
+                      setArrivalDate(
+                        `${newValue.year()}-${
+                          newValue.month() + 1 >= 10
+                            ? newValue.month() + 1
+                            : "0" + (newValue.month() + 1)
+                        }-${
+                          newValue.date() >= 10
+                            ? newValue.date()
+                            : "0" + newValue.date()
+                        }`
+                      );
+                    }}
+                    sx={{
+                      width: "100%",
+                    }}
+                    disablePast
+                  />
+                </DemoContainer>
+              </LocalizationProvider>
               <TextField
-                placeholder="Tell us about your preferences"
+                {...register("criteria")}
+                error={!!errors.criteria}
+                helperText={errors.criteria?.message}
+                placeholder="Share your travel preferences for flights, dining, activities, and accommodations to help us create the perfect plan tailored just for you!"
                 multiline
                 fullWidth
                 rows={4}
-                maxRows={4}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     borderRadius: "30px",
@@ -186,6 +328,7 @@ const RecommendationsPage = () => {
                   borderRadius: "18px",
                   gridColumn: "span 2",
                 }}
+                type="submit"
               >
                 <Typography>Generate My plan</Typography>
               </Button>

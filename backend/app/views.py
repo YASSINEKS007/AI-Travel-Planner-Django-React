@@ -14,13 +14,6 @@ from .models import CustomUser
 from .serializers import UserUpdateSerializer
 
 
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-@authentication_classes([JWTAuthentication])
-def test(request):
-    return Response({"message": "test with success"}, status=status.HTTP_200_OK)
-
-
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def register(request):

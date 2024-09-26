@@ -13,7 +13,7 @@ import RecommendationsPage from "./pages/RecommendationsPage";
 import RecommendationDetailsPage from "./pages/RecommendationDetailsPage";
 
 const App = () => {
-  const isAuthenticated = useSelector((state) => state.accessToken != null);
+  const isAuthenticated = localStorage.getItem("accessToken") !== null;
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 

@@ -44,56 +44,57 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
-      // Prevent retrying the same request multiple times
-      if (isRefreshing) {
-        return new Promise(function (resolve, reject) {
-          failedRequestsQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            originalRequest.headers["Authorization"] = "Bearer " + token;
-            return api(originalRequest);
-          })
-          .catch((err) => {
-            return Promise.reject(err);
-          });
-      }
+    // Handle 401 errors
+    if (error.response.status === 401) {
+      if (!originalRequest._retry) {
+        originalRequest._retry = true; // Mark request as retrying
+        isRefreshing = true; // Prevent multiple refresh attempts
 
-      originalRequest._retry = true;
-      isRefreshing = true;
-
-      try {
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (!refreshToken) {
-          return Promise.reject(error); // If no refresh token, reject the promise
-        }
-
-        // Refresh token logic (replace with your refresh token API call)
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_BACKEND_HOST}/auth/token/refresh/`,
-          {
-            refresh: refreshToken,
+        try {
+          const refreshToken = localStorage.getItem("refreshToken");
+          if (!refreshToken) {
+            // No refresh token available, log out
+            logoutUser();
+            return Promise.reject(error);
           }
-        );
 
-        const newAccessToken = data.access;
-        const newRefreshToken = data.refresh;
+          // Attempt to refresh the token
+          const { data } = await axios.post(
+            `${import.meta.env.VITE_BACKEND_HOST}/auth/token/refresh/`,
+            {
+              refresh: refreshToken,
+            }
+          );
 
-        localStorage.setItem("accessToken", newAccessToken);
-        localStorage.setItem("refreshToken", newRefreshToken);  
+          const newAccessToken = data.access;
+          const newRefreshToken = data.refresh;
 
-        // Update Authorization header for the failed request and retry it
-        api.defaults.headers["Authorization"] = "Bearer " + newAccessToken;
-        originalRequest.headers["Authorization"] = "Bearer " + newAccessToken;
+          // Store new tokens
+          localStorage.setItem("accessToken", newAccessToken);
+          localStorage.setItem("refreshToken", newRefreshToken);
 
-        processQueue(null, newAccessToken);
+          // Update Authorization header for the original request
+          originalRequest.headers["Authorization"] = "Bearer " + newAccessToken;
 
-        return api(originalRequest); // Retry the original request with new token
-      } catch (err) {
-        processQueue(err, null);
-        return Promise.reject(err);
-      } finally {
-        isRefreshing = false;
+          // Process any failed requests in the queue
+          processQueue(null, newAccessToken);
+
+          return api(originalRequest); // Retry the original request
+        } catch (err) {
+          // Handle error and log out if refresh fails
+          logoutUser();
+          return Promise.reject(err);
+        } finally {
+          isRefreshing = false; // Reset the refresh flag
+        }
+      } else if (isRefreshing) {
+        // If a refresh is in progress, queue the request
+        return new Promise((resolve, reject) => {
+          failedRequestsQueue.push({ resolve, reject });
+        }).then((token) => {
+          originalRequest.headers["Authorization"] = "Bearer " + token;
+          return api(originalRequest); // Retry the original request
+        });
       }
     }
 
@@ -101,5 +102,10 @@ api.interceptors.response.use(
   }
 );
 
+const logoutUser = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  window.location.href = "/login"; // Redirect to login
+};
 
 export default api;

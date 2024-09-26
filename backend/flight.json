@@ -1,0 +1,11 @@
+{
+    "flight": {
+        "one Way": "No",
+        "departure": "2024-09-27T10:50:00",
+        "arrival": "2024-09-27T17:00:00",
+        "price": {
+            "currency": "EUR",
+            "total": "219.02"
+        }
+    }
+}
