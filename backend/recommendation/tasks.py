@@ -573,7 +573,7 @@ class AiActivitiesTasks:
 
     def extract_activities_criteria_task(self, criteria: str, agent: Agent) -> Task:
         """Create a task to extract travel activity preferences from user criteria."""
-        
+
         return Task(
             description=dedent(f"""
                 You will receive a user's preferences for a travel plan.
@@ -593,21 +593,31 @@ class AiActivitiesTasks:
 
     def activities_task(self, city: str, agent: Agent) -> Task:
         """Create a task to select travel activities based on given criteria."""
-        
+
         activities = get_activities(city=city)
 
         return Task(
             description=dedent(f"""
                 You will be given a list of available travel activities in JSON format.
                 Select 10 based on the given criteria. If fewer than 10 activities are available,
-                complete the selection with the best possible activities from the list.
+                complete the selection with the best possible activities from the list and don't include restaurants or dining options.
 
                 The list of activities in JSON format: {activities}
 
-                In your response, return only the 10 selected activities in a well-formatted JSON object list, 
+                In your response, return only the 10 selected activities in a well-formatted JSON object list,
                 with no comments. Ensure to vary the activities.
             """),
-            expected_output="A JSON object representing the selected activities, with no comments or explanations.",
+            expected_output=dedent("""A JSON object representing the selected activities, with no comments or explanations.
+            Example Output:
+            {
+                "activities": [
+                    {"name": "Activity 1", "address": "address 1", "categories" : ["category 1", "category 2"]},
+                    {"name": "Activity 2", "address": "address 2", "categories" : ["category 1", "category 2"},
+                    ...
+                    {"name": "Activity 10", "address": "address 10", "categories" : ["category 1", "category 2"}
+                ]
+            }
+            """),
             agent=agent,
             output_file="activities.json",
         )

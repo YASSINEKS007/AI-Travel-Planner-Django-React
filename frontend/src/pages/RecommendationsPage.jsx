@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import {
   Box,
@@ -16,15 +17,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import NavBar from "../components/NavBar";
 import RecommendationCard from "../components/RecommendationCard";
 import data from "../data/destinations.json";
-import * as yup from "yup";
 import api from "../services/api";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup
   .object({
@@ -61,11 +61,9 @@ const RecommendationsPage = () => {
 
   const [departureDate, setDepartureDate] = useState(null);
   const [arrivalDate, setArrivalDate] = useState(null);
+  const [travelPlans, setTravelPlans] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log("data : ", data);
-    console.log("data : ", departureDate);
-    console.log("data : ", arrivalDate);
     try {
       const response = await api.post("/recommendation/generate-plan/", {
         origin: data.origin,
@@ -76,12 +74,25 @@ const RecommendationsPage = () => {
         arrival: arrivalDate,
         criteria: data.criteria,
       });
-
-      console.log("response : ", response.data);
+      console.log("travel Plans : ", response.data);
     } catch (error) {
       console.log("error sending user preferences ", error);
     }
   };
+
+  const get_travel_plans = async () => {
+    try {
+      const response = await api.get("/recommendation/travel-plans/");
+      console.log(response.data);
+      setTravelPlans(response.data);
+    } catch (error) {
+      console.log("error : ", error);
+    }
+  };
+
+  useEffect(() => {
+    get_travel_plans();
+  }, []);
 
   const [label, setLabel] = useState("");
 
@@ -401,32 +412,25 @@ const RecommendationsPage = () => {
           }
           gap="30px"
         >
-          <RecommendationCard
-            cityName="Paris"
-            userRating={2}
-            labels={labels}
-            onClick={() => navigate(`/recommendations/111`)}
-          />
-          <RecommendationCard
-            cityName="London"
-            userRating={2}
-            labels={labels}
-          />
-          <RecommendationCard
-            cityName="Paris"
-            userRating={2}
-            labels={labels}
-          />
-          <RecommendationCard
-            cityName="Paris"
-            userRating={2}
-            labels={labels}
-          />
-          <RecommendationCard
-            cityName="Paris"
-            userRating={5}
-            labels={labels}
-          />
+          {travelPlans && travelPlans.length > 0 ? (
+            travelPlans.map((travelPlan, id) => (
+              <RecommendationCard
+                key={id}
+                cityName={travelPlan.destination_city}
+                userRating={travelPlan.rating}
+                labels={labels}
+                onClick={() => navigate(`/recommendations/${travelPlan.id}`)}
+              />
+            ))
+          ) : (
+            <Typography
+              sx={{
+                textAlign: "center",
+              }}
+            >
+              You don t have any recommendations right now.
+            </Typography>
+          )}
         </Box>
       </div>
     </>

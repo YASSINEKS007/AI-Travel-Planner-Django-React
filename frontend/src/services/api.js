@@ -2,6 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_HOST,
+  timeout: 10000, 
 });
 
 api.interceptors.request.use(
@@ -105,7 +106,7 @@ api.interceptors.response.use(
 const logoutUser = () => {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");
-  window.location.href = "/login"; // Redirect to login
+  window.location.href = "/login"; 
 };
 
 export default api;

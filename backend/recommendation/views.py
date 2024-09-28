@@ -5,7 +5,11 @@ from rest_framework.response import Response
 from rest_framework import status
 import json
 from .all_crews import execute_crews
-# Create your views here.
+from .models import Flight, TravelPlan, Restaurant, Activity
+from datetime import datetime
+from django.utils import timezone
+import re
+from .serializers import TravelPlanSerializer
 
 
 @api_view(["POST"])
@@ -21,17 +25,149 @@ def generate_plan(request):
     departure = data.get("departure")
     return_date = data.get("arrival")
     criteria = data.get("criteria")
-    
-    print(departure)
-    print("*************************************************")
 
-    flight_data, activities_data, restaurants_data = execute_crews(
+    crew_executions = execute_crews(
         criteria=criteria, city_origin=origin, city_destination=destination, departure_date=departure, return_date=return_date, adults=adults)
 
-    print(flight_data)
-    print("********************")
-    print(restaurants_data)
-    print("******************")
-    print(activities_data)
+    flight_data, activities_data, restaurants_data = crew_executions[
+        0], crew_executions[1], crew_executions[2]
 
-    return Response({"message": "well done"}, status=status.HTTP_200_OK)
+    
+    one_way_key = "one Way" if "one Way" in flight_data["flight"] else "oneWay"
+
+    departure_datetime = timezone.make_aware(datetime.strptime(
+        flight_data["flight"]["departure"], '%Y-%m-%dT%H:%M:%S'))
+    arrival_datetime = timezone.make_aware(datetime.strptime(
+        flight_data["flight"]["arrival"], "%Y-%m-%dT%H:%M:%S"))
+
+    flight, created = Flight.objects.get_or_create(
+        one_way=False if flight_data["flight"][one_way_key].strip().lower() == "no" else True,
+        departure=departure_datetime,
+        arrival=arrival_datetime,
+        currency=flight_data['flight']['price']['currency'],
+        price=float(flight_data['flight']['price']['total'])
+    )
+
+    # Create TravelPlan
+    new_travel_plan = TravelPlan.objects.create(
+        user=user,
+        flight=flight,
+        origin_city=origin,
+        destination_city=destination
+    )
+
+    # Prepare Activities
+    for activity in activities_data["activities"]:
+        full_categories = ",".join(activity["categories"])
+
+        # Check if the Activity already exists
+        activity_obj, created = Activity.objects.get_or_create(
+            name=activity["name"],
+            address=activity["address"],
+            categories=full_categories
+        )
+        
+        # Associate the Activity with the TravelPlan
+        new_travel_plan.activities.add(activity_obj)
+
+    # Prepare Restaurants
+    for restaurant in restaurants_data["restaurants"]:
+        # Check if the Restaurant already exists
+        restaurant_obj, created = Restaurant.objects.get_or_create(
+            name=restaurant["name"],
+            address=restaurant["address"],
+            phone=restaurant["phone"],
+            website=restaurant["website"],
+        )
+
+        # Associate the Restaurant with the TravelPlan
+        new_travel_plan.restaurants.add(restaurant_obj)
+
+    return Response({"message": "Travel plan created successfully"}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+def get_travel_plans(request):
+    user = request.user
+    
+    travel_plans = TravelPlan.objects.filter(user=user)
+    
+    serializer = TravelPlanSerializer(travel_plans, many=True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # one_way_key = "one Way" if "one Way" in flight_data["flight"] else "oneWay"
+
+    # new_flight = Flight.objects.create(
+    #     one_way=False if flight_data["flight"][one_way_key].strip(
+    #     ).lower() == "no" else True,
+    #     departure=timezone.make_aware(datetime.strptime(
+    #         flight_data["flight"]["departure"], '%Y-%m-%dT%H:%M:%S')),
+    #     arrival=timezone.make_aware(datetime.strptime(
+    #         flight_data["flight"]["arrival"], "%Y-%m-%dT%H:%M:%S")),
+    #     currency=flight_data['flight']['price']['currency'],
+    #     price=float(flight_data['flight']['price']['total'])
+    # )
+
+    # new_travel_plan = TravelPlan.objects.create(
+    #     user=user,
+    #     flight=new_flight,
+    # )
+
+    # for activity in activities_data["activities"]:
+    #     full_categories = ""
+    #     for category in activity["categories"]:
+    #         full_categories += category + ","
+
+    #     new_activity = Activity.objects.create(
+    #         name=activity["name"],
+    #         address=activity["address"],
+    #         categories=full_categories
+
+    #     )
+
+    #     new_travel_plan.activities.add(new_activity)
+
+    # for restaurant in restaurants_data["restaurants"]:
+    #     new_restaurant = Restaurant.objects.create(
+    #         name=restaurant["name"],
+    #         address=restaurant["address"],
+    #         phone=restaurant["phone"],
+    #         website=restaurant["website"],
+    #     )
+
+    #     new_travel_plan.restaurants.add(new_restaurant)

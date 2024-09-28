@@ -21,7 +21,7 @@ class AiFlightsAgents:
     def flights_agent(self):
         return Agent(
             role="Flights Selector",
-            goal="Conduct a comprehensive research on the available flights",
+            goal="Conduct a comprehensive research on the available flights and return result in JSON format",
             backstory=dedent(
                 """You are a researcher specialist that search flights and choose the best one"""
             ),
@@ -60,7 +60,7 @@ class AiRestaurantsAgents:
     def restaurants_agent(self):
         return Agent(
             role="Restaurants Selector",
-            goal="Conduct a comprehensive research on the available restaurants and dining options",
+            goal="Conduct a comprehensive research on the available restaurants and dining options and return results in JSON format",
             backstory=dedent(
                 """You are a researcher specialist that search restaurants and choose the best ones"""
             ),
@@ -103,7 +103,7 @@ class AiActivitiesAgents:
     def activities_agent(self):
         return Agent(
             role="Activities Selector",
-            goal="Research and select the top 10 activities based on user preferences and available options.",
+            goal="Research and select the top 10 activities based on user preferences and available options and return results in json format",
             backstory=dedent(
                 """
                 You are a seasoned researcher specializing in finding and selecting the best activities for travelers. 

@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 
 const DestinationCard = ({ title, description }) => {
   const imageName = title.toLowerCase();
-  console.log("image name : ", imageName)
   return (
     <Card sx={{ maxWidth: 345, height: 320 }}>
       <CardActionArea>

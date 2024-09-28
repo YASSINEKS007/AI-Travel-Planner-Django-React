@@ -25,7 +25,6 @@ def get_flights_by_city(
     )
 
     res = response.json()
-    print(res)
     data = res["data"]
 
     flights = []

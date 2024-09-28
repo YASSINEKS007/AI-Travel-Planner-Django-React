@@ -1,17 +1,14 @@
-[
-  {
-    "name": "Soho Tour (Available in Spanish)",
-    "description": "<p>The free Soho tour runs through the streets of this picturesque neighborhood knowing the stories and characters that have been forging its essence. From Soho Square to China Town, and from Piccadilly Circus to Carnaby Street, a tour is framed by which we will visit the Red Light Redoubts, the bars with history of the area, talk about attacks, diseases, homosexuality and see how well-known characters like Carl Marx, Oscar Wilde or Jimi Hendrix left their mark here. It is the cradle for bohemian artists, intellectuals and writers from around the world. Come on our guruwalk and you'll never see Soho again with the same eyes.</p><p>Free tour: Book for free and pay what you want at the end</p>",
-    "picture": "https://d1i21eq0w7p1n3.cloudfront.net/2x5aorwrt7kzzqvlqqttzuf3yvx7"
-  },
-  {
-    "name": "Jet Boating the Thames in Central London",
-    "description": "<p>Ride the fastest speed boats on the River Thames and see London like never before in this Ultimate roller coaster on water Experience.&nbsp;</p>\n<p>Feel like James Bond for the day as you Experience an extreme sightseeing RIB ride on-board the fastest London speedboats on the River Thames. See more of London in 50 minutes (approx.) than you&rsquo;d expect to see in conventional sightseeing tours three times this length.</p>\n<p>Full fun thrilling guided commentary, turbo blasting speed and Bond music included in this Thames RIB Experience Ultimate Rollercoaster on water.</p>\n<p>Enjoy one of the most popular Thames RIB Experiences with this 50 minute&nbsp;round trips from&nbsp;Embankment Pier&nbsp;in&nbsp;Central London. This thrilling Experience is jam packed with a fun &amp; gripping live commentary as we pass by London&rsquo;s greatest new &amp; historical sights and has enough hair raising high speed to tip your heart rate off the scale.&nbsp;</p>\n<p>Start snapping, as we pass by Big Ben, the Houses of Parliament, MI5, MI6, The&nbsp;London Eye, St Paul's Cathedral, Shakespeare's Globe Theatre, Monument, the Shard, HMS Belfast, Tower Bridge and&nbsp;the Tower of London.</p>\n<p>You&rsquo;ll return to Embankment Pier totally buzzing in the aftermath of the most exciting 50 minutes of your life!</p>",
-    "picture": "https://media.manawa.com/cache/activity_gallery_zoom_770x500/media/2020/02/cd45b0c49b83129b5da99b942f918a83.jpeg"
-  },
-  {
-    "name": "Pure Indian Cooking",
-    "description": "Indian food is something you’ll frequently find in London and the rest of England and this place is definitely a must when you’re craving some. Pure Indian Cooking prides itself in being a family run restaurant with impeccable credentials. Husband and wife are the team –Faheem Vanoo and Shiipa Dandekar– and they both started their careers with the famed Taj group in India.\nThis place was established in 2015 and ever since they serve incredible dishes for you to taste. Shilpa has worked with masterchefs such as Raymond Blanc OBE and Sriram Aylur of Michelin Starred Quilon. Since then, the restaurant has amassed a strong following as a refined and very good local restaurant with many clientele calling it a London “West End restaurant in Fulham”. \nFor more information on reservations and prices, consult its official website.",
-    "picture": "https://cdn.smartvel.com/ccpictures/273409827_1848397655371092_6047035757237151316_n.jpeg"
-  }
-]
+{
+    "activities": [
+        {"name": "Queen's House", "address": "Queen's House, Richmond, London TW10 6OS", "categories" : ["museum", "historical landmark"]},
+        {"name": "Museum of London Docklands", "address": "West India Quay, Hertsmere Road, London E14 4AL", "categories" : ["museum", "history"]},
+        {"name": "London Canal Museum", "address": "12-13 New Wharf Road, London N1 9RT", "categories" : ["museum", "industrial heritage"]},
+        {"name": "Royal Observatory Greenwich", "address": "Blackheath Avenue, London SE10 8XJ", "categories" : ["observatory", "science museum"]},
+        {"name": "Museum of Brands", "address": "111-117 Lancaster Road, London W11 1QT", "categories" : ["museum", "advertising"]},
+        {"name": "Leighton House Museum", "address": "12 Holland Park Road, London W14 8LZ", "categories" : ["museum", "art gallery"]},
+        {"name": "Peckham Platform", "address": "89 Peckham High Street, London SE15 5RS", "categories" : ["galleries and exhibitions", "contemporary art"]},
+        {"name": "Wilton's Music Hall", "address": "1 Graces Alley, London E1 8JB", "categories" : ["theatre", "music venue"]},
+        {"name": "Bloomsbury Theatre", "address": "15 Gordon Street, London WC1H 0AH", "categories" : ["theatre", "music venue"]},
+        {"name": "Castle Cinema", "address": "64-66 Brooksby's Walk, London E9 6DA", "categories" : ["cinema", "film screenings"]}
+    ]
+}

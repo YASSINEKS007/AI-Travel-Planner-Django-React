@@ -1,41 +1,39 @@
 import requests
 from .access_token import get_access_token
 from .iata_code import get_geocode_and_iata
+import os
+
 
 def get_activities(city: str):
-    iataCode, latitude, longitude = get_geocode_and_iata(city=city).values()
+    geocode_data = get_geocode_and_iata(city=city)
+    latitude, longitude = geocode_data['latitude'], geocode_data['longitude']
+
     token = get_access_token()
     headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(
-        f"https://test.api.amadeus.com/v1/shopping/activities?latitude={latitude}&longitude={longitude}&radius=10000",
-        headers=headers,
-    )
+
+    url = f"https://api.geoapify.com/v2/places?categories=entertainment.culture,entertainment.zoo,entertainment.aquarium,entertainment.planetarium,entertainment.museum,entertainment.cinema&filter=circle:{
+        longitude},{latitude},10000&limit=20&apiKey={os.getenv("hotel_api_key")}"
+    response = requests.get(url, headers=headers)
+
+    if response.status_code != 200:
+        raise Exception(f"Error: Received status code {response.status_code}")
 
     result = response.json()
+
+    if 'features' not in result:
+        raise Exception("Error: 'features' key not found in response")
+
     activities = []
 
-    for i in range(len(result["data"])):
-        res = result["data"][i]
-        if (
-            res.get("description") is None
-            and res.get("shortDescription") is None
-            or res.get("pictures", []) == []
-        ):
+    for res in result['features']:
+        properties = res["properties"]
 
-            pass
-        else:
+        if properties:
             data = {
-                "name": res["name"],
-                "description": res.get(
-                    "description",
-                    res.get("shortDescription", "No description available"),
-                ),
-                "picture": res["pictures"][0],
+                "name": properties.get("name", "Unknown Activity"),
+                "address": properties.get("formatted"),
+                "categories": properties.get("categories")
             }
-
             activities.append(data)
 
-
     return activities
-
-

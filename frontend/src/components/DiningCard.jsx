@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import Button from "@mui/material/Button";
 
-const DiningCard = ({ restaurantName, restaurantImage }) => {
+const DiningCard = ({ restaurantName, restaurantImage,  }) => {
   return (
     <Card sx={{ maxWidth: 345, borderRadius: "16px", boxShadow: 3 }}>
       <CardActionArea>
