@@ -204,7 +204,7 @@ const ProfilePage = () => {
               className="text-center"
               style={{ color: theme.palette.primary.main }}
             >
-              Travel History
+              Top Destinations
             </Typography>
             <Swiper
               spaceBetween={30}

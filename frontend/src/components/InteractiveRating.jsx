@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useTheme } from "@emotion/react";
+import { Button, Typography } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
-import { Button, Typography } from "@mui/material";
-import { useTheme } from "@emotion/react";
+import { useState } from "react";
 import api from "../services/api";
 
-const InteractiveRating = ({ travelPlanId }) => {
-  const [value, setValue] = useState(0); 
+const InteractiveRating = ({ travelPlanId, rating }) => {
+  const [value, setValue] = useState(rating); 
   const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const theme = useTheme();
@@ -19,9 +19,10 @@ const InteractiveRating = ({ travelPlanId }) => {
     setFeedback(event.target.value);
   };
 
+  
+
   const handleSubmit = async () => {
     setSubmitted(false);
-    console.log("Submitting rating:", value, "with feedback:", feedback); 
     try {
       const response = await api.patch(
         `/recommendation/travel-plans/${travelPlanId}/update-rating/`, 
@@ -32,7 +33,6 @@ const InteractiveRating = ({ travelPlanId }) => {
       console.log("Response data:", response.data); 
       setSubmitted(true);
       setFeedback("");
-      setValue(2.5); 
     } catch (error) {
       console.log("Error updating rating: ", error);
     }

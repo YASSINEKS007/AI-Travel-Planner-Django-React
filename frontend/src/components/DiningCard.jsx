@@ -19,7 +19,7 @@ const DiningCard = ({ restaurantName, restaurantImage, restaurantPhone, restaura
       }}
     >
       <CardActionArea>
-        <CardMedia
+        {/* <CardMedia
           component="img"
           height="160"
           image={restaurantImage}
@@ -29,7 +29,7 @@ const DiningCard = ({ restaurantName, restaurantImage, restaurantPhone, restaura
             borderRadius: "16px",
             objectFit: "cover",
           }}
-        />
+        /> */}
         <CardContent>
           <Typography
             gutterBottom

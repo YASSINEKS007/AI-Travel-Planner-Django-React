@@ -95,8 +95,8 @@ const MainPage = () => {
             cityName={"Paris"}
           />
           <MainRecommendationCard
-            imagePath={"/cities/new york.jpg"}
-            cityName={"New York"}
+            imagePath={"/cities/dubai.jpg"}
+            cityName={"Dubai"}
           />
           <MainRecommendationCard
             imagePath={"/cities/sydney.jpg"}

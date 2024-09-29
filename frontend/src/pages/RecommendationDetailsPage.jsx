@@ -21,6 +21,7 @@ const RecommendationDetailsPage = () => {
   const [flight, setFlight] = useState({});
   const [restaurants, setRestaurants] = useState([]);
   const [activities, setActivities] = useState([]);
+  const [rating, setRating] = useState(0);
 
   const getTravelPlanDetails = async () => {
     try {
@@ -29,6 +30,7 @@ const RecommendationDetailsPage = () => {
       setFlight(response.data.flight);
       setRestaurants(response.data.restaurants);
       setActivities(response.data.activities);
+      setRating(response.data.rating);
     } catch (error) {
       console.log("Error getting travel plan details: ", error);
     }
@@ -51,8 +53,6 @@ const RecommendationDetailsPage = () => {
 
     return `${formattedHours}:${formattedMinutes} ${period}`;
   };
-
-  // const restaurants = travelPlan.restaurants;
 
   return (
     <>
@@ -177,7 +177,10 @@ const RecommendationDetailsPage = () => {
         </div>
       </div>
 
-      <InteractiveRating travelPlanId={id} />
+      <InteractiveRating
+        travelPlanId={id}
+        rating={rating}
+      />
     </>
   );
 };

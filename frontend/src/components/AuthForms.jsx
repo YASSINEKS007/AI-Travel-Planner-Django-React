@@ -12,7 +12,7 @@ const AuthForms = ({registerToast, handleLoginError}) => {
   };
 
   return (
-    <div className="relative w-full flex justify-center items-center mt-10">
+    <div className="relative w-full flex justify-center items-center mt-10 p-6">
       {/* Left Div */}
       <div
         className={`w-[90%] sm:w-[500px] h-[500px] flex justify-center items-center bg-blue-500 text-white cursor-pointer transform transition-transform duration-500 ${
