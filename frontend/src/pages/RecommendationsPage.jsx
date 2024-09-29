@@ -11,6 +11,7 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import LinearProgress from "@mui/material/LinearProgress";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -19,12 +20,14 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import NavBar from "../components/NavBar";
 import RecommendationCard from "../components/RecommendationCard";
 import data from "../data/destinations.json";
 import api from "../services/api";
+import { setIsGenerating } from "../store/state";
 
 const schema = yup
   .object({
@@ -51,6 +54,10 @@ const RecommendationsPage = () => {
   const isNotMobileScreen = useMediaQuery("(min-width: 1000px)");
   const cities = data.map((destination) => destination.title);
   const navigate = useNavigate();
+  const [generate, setGenerate] = useState(
+    useSelector((state) => state.setIsGenerating)
+  );
+
   const {
     register,
     handleSubmit,
@@ -59,12 +66,15 @@ const RecommendationsPage = () => {
     resolver: yupResolver(schema),
   });
 
+  const dispatch = useDispatch();
+
   const [departureDate, setDepartureDate] = useState(null);
   const [arrivalDate, setArrivalDate] = useState(null);
   const [travelPlans, setTravelPlans] = useState(null);
 
   const onSubmit = async (data) => {
     try {
+      setGenerate(dispatch(setIsGenerating()));
       const response = await api.post("/recommendation/generate-plan/", {
         origin: data.origin,
         destination: data.destination,
@@ -77,13 +87,15 @@ const RecommendationsPage = () => {
       console.log("travel Plans : ", response.data);
     } catch (error) {
       console.log("error sending user preferences ", error);
+    } finally {
+      setGenerate(dispatch(setIsGenerating()));
+      get_travel_plans();
     }
   };
 
   const get_travel_plans = async () => {
     try {
       const response = await api.get("/recommendation/travel-plans/");
-      console.log(response.data);
       setTravelPlans(response.data);
     } catch (error) {
       console.log("error : ", error);
@@ -371,7 +383,7 @@ const RecommendationsPage = () => {
               fontWeight: "bold",
             }}
           >
-            Showing 100 results
+            Showing {travelPlans && travelPlans.length} results
           </Typography>
 
           <div className="flex items-center">
@@ -405,6 +417,20 @@ const RecommendationsPage = () => {
           </div>
         </div>
 
+        {generate && (
+          <>
+            <Typography
+              variant="h4"
+              sx={{
+                textAlign: "center",
+                mb: 2,
+              }}
+            >
+              Please wait while you plan is being generated
+            </Typography>
+            <LinearProgress color="secondary" />
+          </>
+        )}
         <Box
           display="grid"
           gridTemplateColumns={

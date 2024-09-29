@@ -29,3 +29,9 @@ class TravelPlanSerializer(serializers.ModelSerializer):
         model = TravelPlan
         fields = ['id', 'user', 'flight', 'rating', 'activities',
                   'restaurants', 'origin_city', 'destination_city']
+
+
+class TravelPlanSummarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TravelPlan
+        fields = ['id', 'rating', 'destination_city']

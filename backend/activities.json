@@ -1,14 +1,14 @@
 {
     "activities": [
-        {"name": "Queen's House", "address": "Queen's House, Richmond, London TW10 6OS", "categories" : ["museum", "historical landmark"]},
-        {"name": "Museum of London Docklands", "address": "West India Quay, Hertsmere Road, London E14 4AL", "categories" : ["museum", "history"]},
-        {"name": "London Canal Museum", "address": "12-13 New Wharf Road, London N1 9RT", "categories" : ["museum", "industrial heritage"]},
-        {"name": "Royal Observatory Greenwich", "address": "Blackheath Avenue, London SE10 8XJ", "categories" : ["observatory", "science museum"]},
-        {"name": "Museum of Brands", "address": "111-117 Lancaster Road, London W11 1QT", "categories" : ["museum", "advertising"]},
-        {"name": "Leighton House Museum", "address": "12 Holland Park Road, London W14 8LZ", "categories" : ["museum", "art gallery"]},
-        {"name": "Peckham Platform", "address": "89 Peckham High Street, London SE15 5RS", "categories" : ["galleries and exhibitions", "contemporary art"]},
-        {"name": "Wilton's Music Hall", "address": "1 Graces Alley, London E1 8JB", "categories" : ["theatre", "music venue"]},
-        {"name": "Bloomsbury Theatre", "address": "15 Gordon Street, London WC1H 0AH", "categories" : ["theatre", "music venue"]},
-        {"name": "Castle Cinema", "address": "64-66 Brooksby's Walk, London E9 6DA", "categories" : ["cinema", "film screenings"]}
+        {"name": "Museo Nazionale Etrusco di Villa Giulia", "address": "National Etruscan Museum, Piazzale di Villa Giulia, 9, 00196 Rome RM, Italy", "categories" : ["building", "entertainment.museum"]},
+        {"name": "MAXXI Museo nazionale delle arti del XXI secolo", "address": "MAXXI Museo nazionale delle arti del XXI secolo, Via Guido Reni, 4 A, 00196 Rome RM, Italy", "categories" : ["entertainment.museum", "wheelchair.yes"]},
+        {"name": "Musei Capitolini", "address": "Capitoline Museums, Clivus Capitolinus, 00184 Rome RM, Italy", "categories" : ["building", "entertainment.museum"]},
+        {"name": "Museo dell'Ara Pacis", "address": "Museo dell'Ara Pacis, Lungotevere in Augusta, 00100 Rome RM, Italy", "categories" : ["building", "entertainment.museum", "fee"]},
+        {"name": "Galleria Spada", "address": "Galleria Spada, Piazza Capo di Ferro, 13, 00186 Rome RM, Italy", "categories" : ["entertainment.museum", "fee"]},
+        {"name": "Palazzo Doria Pamphilj", "address": "Palazzo Doria Pamphilj, Via del Corso, 305, 00186 Rome RM, Italy", "categories" : ["entertainment.museum", "wheelchair.limited"]},
+        {"name": "Museo Pietro Canonica", "address": "Museo Pietro Canonica, Viale Pietro Canonica, 2, 00197 Rome RM, Italy", "categories" : ["entertainment.museum"]},
+        {"name": "Galleria Spada", "address": "Galleria Spada, Piazza Capo di Ferro, 13, 00186 Rome RM, Italy", "categories" : ["entertainment.museum", "fee"]},
+        {"name": "Museo Nazionale Romano", "address": "Museo Nazionale Romano, 46, 00186 Rome RM, Italy", "categories" : ["entertainment.museum", "wheelchair.yes"]},
+        {"name": "Palazzo Doria Pamphilj", "address": "Palazzo Doria Pamphilj, Via del Corso, 305, 00186 Rome RM, Italy", "categories" : ["entertainment.museum", "wheelchair.limited"]}
     ]
 }

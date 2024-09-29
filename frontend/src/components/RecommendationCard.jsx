@@ -41,6 +41,7 @@ const RecommendationCard = ({ cityName, userRating, labels, onClick }) => {
       <Rating
         value={rating}
         precision={0.5}
+        readOnly 
         getLabelText={getLabelText}
         onChange={(event, newValue) => {
           setRating(newValue);

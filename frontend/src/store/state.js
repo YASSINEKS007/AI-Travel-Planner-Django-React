@@ -6,6 +6,7 @@ const initialState = {
   accessToken: null,
   refreshToken: null,
   emailNotification: false,
+  isGenerating: false,
 };
 
 export const authSlice = createSlice({
@@ -36,6 +37,9 @@ export const authSlice = createSlice({
       state.user.email = action.payload.email;
       state.user.profilePicture = action.payload.profilePicture;
     },
+    setIsGenerating: (state) => {
+      state.isGenerating = !state.isGenerating;
+    },
   },
 });
 
@@ -45,6 +49,7 @@ export const {
   setLogout,
   setEmailNotifications,
   setUpdateUser,
+  setIsGenerating
 } = authSlice.actions;
 
 export default authSlice.reducer;

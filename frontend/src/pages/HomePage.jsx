@@ -9,11 +9,13 @@ import DestinationCard from "../components/DestinationCard";
 import data from "../data/destinations.json";
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const isNotMobileScreen = useMediaQuery("(min-width: 1000px)");
   const [searchTerm, setSearchTerm] = useState("");
   const [destinationsResult, setDestinationsResult] = useState(data);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const filteredDestinations = data.filter((destination) =>
@@ -78,6 +80,7 @@ const HomePage = () => {
             sx={{
               borderRadius: "18px",
             }}
+            onClick={() => navigate("/recommendations")}
           >
             Get Started
           </Button>

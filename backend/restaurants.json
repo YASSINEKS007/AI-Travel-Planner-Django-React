@@ -1,22 +1,22 @@
 {
-  "restaurants": [
-    {
-      "name": "Galvin at Windows",
-      "address": "Galvin at Windows, 22 Park Lane, London, W1K 1BE, United Kingdom",
-      "website": "https://www.galvinatwindows.com/",
-      "phone": "+44 20 7208 4021"
-    },
-    {
-      "name": "The Wolseley",
-      "address": "The Wolseley, 157-160 Piccadilly, London, W1J 9EB, United Kingdom",
-      "website": "https://www.thewolseley.com/",
-      "phone": "+44 20 7499 6996"
-    },
-    {
-      "name": "Noble Rot",
-      "address": "Noble Rot, 51 Lamb's Conduit Street, London, WC1N 3NB, United Kingdom",
-      "website": "https://noblerot.co.uk/",
-      "phone": "+44 20 7242 8963"
-    }
-  ]
+    "restaurants": [
+        {
+            "name": "Cencio la Parolaccia",
+            "address": "Cencio la Parolaccia, Vicolo del Cinque, 3, 00153 Rome RM, Italy",
+            "website": "https://cenciolaparolaccia.it/",
+            "phone": "+39 06 6880 6704"
+        },
+        {
+            "name": "Il Baffetto",
+            "address": "Il Baffetto, Via del Governo Vecchio, 114, 00186 Rome RM, Italy",
+            "website": "http://www.pizzeriabaffetto.it/",
+            "phone": "+39 06 6861617"
+        },
+        {
+            "name": "Fratelli la Bufala",
+            "address": "Fratelli la Bufala, Viale di Tor di Quinto, 35, 00194 Rome RM, Italy",
+            "website": "https://fratellilabufala.com/",
+            "phone": "+39 06 9727 3647"
+        }
+    ]
 }
