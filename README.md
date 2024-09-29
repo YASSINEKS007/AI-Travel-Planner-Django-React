@@ -16,10 +16,20 @@ Whether you’re dreaming of a tropical getaway, an enriching cultural explorati
 
 ## Technologies Used
 
-- **Frontend:** React.js (version 18.3)
-- **Backend:** Django (version 5.1)
-- **Database:** PostgreSQL (version 16.4)
-- **LLM:** ollama (Llama3.1)
+- **Frontend:** 
+  - **React.js** (v18.3) for building dynamic user interfaces
+  - **TailwindCSS** (v3.4) for utility-first CSS styling
+  - **Material UI** (v6.0) for pre-designed React components
+  
+- **Backend:** 
+  - **Django** (v5.1) for robust web application development
+  - **crewai** (v0.63.6) for agents and task management
+  
+- **Database:** 
+  - **PostgreSQL** (v16.4) for reliable data storage and management
+  
+- **Large Language Model (LLM):** 
+  - **Ollama** (Llama 3.1) for agents to use.
 
 ## Getting Started
 
@@ -123,8 +133,6 @@ Make sure you have the following installed:
   - `VITE_BACKEND_HOST=`: Set this to the backend host URL.
   - `VITE_GOOGLE_CLIENT_ID=`: Set this to your Google Client ID obtained from the Google Developer Console for OAuth 2.0 authentication.
 
-
-
 #### Backend
 
 - **File:** `.env`
@@ -142,11 +150,16 @@ Make sure you have the following installed:
     - `DB_HOST=`: Host of the PostgreSQL database server.
     - `DB_PORT=`: Port number for the PostgreSQL database server.
 
-- **Api Keys:**
-  - `grant_type` :
-  - `client_id`:
-  - `client_secret` :
-  - `hotel_api_key` :
+- API Keys
+
+- **`grant_type`**: The type of grant used for authentication with the Amadeus Travel API. More details can be found in the [Amadeus API documentation](https://developers.amadeus.com/).
+  
+- **`client_id`**: The unique identifier for your application when accessing the Amadeus Travel API. You can find it in the [Amadeus API documentation](https://developers.amadeus.com/).
+
+- **`client_secret`**: A confidential key associated with your application, required for authenticating requests to the Amadeus Travel API. Refer to the [Amadeus API documentation](https://developers.amadeus.com/) for more information.
+
+- **`hotel_api_key`**: The API key for accessing the Geoapify service, which provides hotel and activities data and other location-based services. More information is available at [Geoapify](https://www.geoapify.com/).
+
 
 ## Usage
 
@@ -163,65 +176,73 @@ Make sure you have the following installed:
 ## Screenshots
 
 ### Main Page
+
 ![Main Page](./imgs/main-page.png)  
-*Overview of the main application interface where users can interact with the system.*
+_Overview of the main application interface where users can interact with the system._
 
 ---
 
 ### Authentication Pages
+
 ![Login Form](./imgs/login-form.png)  
 ![Register Form](./imgs/register-form.png)  
-*Users can log in with their email or Google account, or register if it's their first time.*
+_Users can log in with their email or Google account, or register if it's their first time._
 
 ---
 
 ### Home Page
+
 ![Home Page](./imgs/home-page.png)  
-*The home page displays available destinations along with their descriptions, helping users make informed choices.*
+_The home page displays available destinations along with their descriptions, helping users make informed choices._
 
 ---
 
 ### Profile Page
+
 ![Profile Page](./imgs/profile-page.png)  
-*This page allows users to update their information, activate email notifications, and switch between dark and light mode.*
+_This page allows users to update their information, activate email notifications, and switch between dark and light mode._
 
 ---
 
 ### Recommendations Page
+
 ![Recommendations Page](./imgs/recommendations-page.png)  
-*The recommendations page features a form for users to enter their preferences and a section to display the generated travel plans.*
+_The recommendations page features a form for users to enter their preferences and a section to display the generated travel plans._
 
 ---
 
 ### Recommendation Details Page
+
 ![Recommendation Details Page](./imgs/recommendations-details-page.png)  
-*This page provides detailed information about the selected plan, including flight options, dining suggestions, and activities.*
+_This page provides detailed information about the selected plan, including flight options, dining suggestions, and activities._
 
 ### Mobile Responsiveness
 
 #### Home Page
+
 ![Responsiveness Home](./imgs/home-responsive.png)  
-*Mobile view of the home page, demonstrating how available destinations are displayed on smaller screens.*
+_Mobile view of the home page, demonstrating how available destinations are displayed on smaller screens._
 
 ---
 
 #### Profile Page
+
 ![Profile Page](./imgs/profile-responsive.png)  
-*Mobile view of the profile page, showcasing the layout for user information updates and notifications.*
+_Mobile view of the profile page, showcasing the layout for user information updates and notifications._
 
 ---
 
 #### Recommendations Page
+
 ![Recommendations Page](./imgs/recommendations-responsive.png)  
-*Mobile view of the recommendations page, illustrating how the form and generated plans adapt to smaller screens.*
+_Mobile view of the recommendations page, illustrating how the form and generated plans adapt to smaller screens._
 
 ---
 
 #### Recommendation Details Page
+
 ![Recommendation Details Page](./imgs/recommendations-details-responsive.png)  
-*Mobile view of the recommendation details page, showing how flight options, dining suggestions, and activities are presented on mobile devices.*
-
-
+_Mobile view of the recommendation details page, showing how flight options, dining suggestions, and activities are presented on mobile devices._
 
 ## Contributing
 
